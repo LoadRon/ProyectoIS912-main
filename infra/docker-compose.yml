@@ -1,9 +1,9 @@
 # infra/docker-compose.yml
 version: '3.8'
 services:
-  db-proyectois912:
+  db-habitforge:
     image: postgres:16-alpine
-    container_name: postgres-proyectois912
+    container_name: postgres-habitforge
     env_file:
       - .env # Inyecta las variables exclusivas del contenedor
     ports:

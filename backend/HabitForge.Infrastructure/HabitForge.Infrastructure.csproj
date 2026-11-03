@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\ProyectoIS912.Application\ProyectoIS912.Application.csproj" />
+    <ProjectReference Include="..\HabitForge.Application\HabitForge.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>
