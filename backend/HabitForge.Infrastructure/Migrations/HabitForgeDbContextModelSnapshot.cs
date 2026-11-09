@@ -37,6 +37,123 @@ namespace HabitForge.Infrastructure.Migrations
 
                     b.ToTable("HabitosGlobales");
                 });
+
+            modelBuilder.Entity("HabitForge.Domain.Entities.Proyecto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("nombre");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("integer")
+                        .HasColumnName("usuario_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("proyectos", (string)null);
+                });
+
+            modelBuilder.Entity("HabitForge.Domain.Entities.Tarea", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Completada")
+                        .HasColumnType("boolean")
+                        .HasColumnName("completada");
+
+                    b.Property<int>("ProyectoId")
+                        .HasColumnType("integer")
+                        .HasColumnName("proyecto_id");
+
+                    b.Property<string>("Titulo")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("titulo");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProyectoId");
+
+                    b.ToTable("tareas", (string)null);
+                });
+
+            modelBuilder.Entity("HabitForge.Domain.Entities.Usuario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("email");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("nombre");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.ToTable("usuarios", (string)null);
+                });
+
+            modelBuilder.Entity("HabitForge.Domain.Entities.Proyecto", b =>
+                {
+                    b.HasOne("HabitForge.Domain.Entities.Usuario", "Usuario")
+                        .WithMany("Proyectos")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("HabitForge.Domain.Entities.Tarea", b =>
+                {
+                    b.HasOne("HabitForge.Domain.Entities.Proyecto", "Proyecto")
+                        .WithMany("Tareas")
+                        .HasForeignKey("ProyectoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Proyecto");
+                });
+
+            modelBuilder.Entity("HabitForge.Domain.Entities.Proyecto", b =>
+                {
+                    b.Navigation("Tareas");
+                });
+
+            modelBuilder.Entity("HabitForge.Domain.Entities.Usuario", b =>
+                {
+                    b.Navigation("Proyectos");
+                });
 #pragma warning restore 612, 618
         }
     }

@@ -18,6 +18,11 @@ public static class DependencyInjection {
         // entrégale los datos de la Finca PostgreSQL (HabitoRepository)"
         services.AddScoped<IHabitoRepository, HabitoRepository>();
 
+        // 3. Repositorios del Sistema de Gestión de Tareas (usuarios, proyectos, tareas)
+        services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+        services.AddScoped<IProyectoRepository, ProyectoRepository>();
+        services.AddScoped<ITareaRepository, TareaRepository>();
+
         return services;
     }
 }

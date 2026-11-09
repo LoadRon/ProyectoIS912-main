@@ -10,3 +10,67 @@ Content-Type: application/json
 {
   "nombre": "Estudiar Arquitectura Limpia y Event Sourcing"
 }
+
+### 3. Eliminar un hábito (Prueba del Verbo DELETE)
+DELETE http://localhost:5133/api/habitos/1
+
+# =========================================================================
+# SISTEMA DE GESTIÓN DE TAREAS (usuarios -> proyectos -> tareas)
+# =========================================================================
+
+### 4. Usuarios: GET
+GET http://localhost:5133/api/usuarios
+Accept: application/json
+
+### 5. Usuarios: POST
+POST http://localhost:5133/api/usuarios
+Content-Type: application/json
+
+{
+  "nombre": "Ana Martínez",
+  "email": "ana@correo.com"
+}
+
+### 6. Usuarios: POST con data sucia (FluentValidation -> HTTP 400)
+POST http://localhost:5133/api/usuarios
+Content-Type: application/json
+
+{
+  "nombre": "",
+  "email": "no-es-un-email"
+}
+
+### 7. Usuarios: DELETE (borra en cascada sus proyectos y tareas)
+DELETE http://localhost:5133/api/usuarios/1
+
+### 8. Proyectos: GET (opcional ?usuarioId=1)
+GET http://localhost:5133/api/proyectos
+Accept: application/json
+
+### 9. Proyectos: POST
+POST http://localhost:5133/api/proyectos
+Content-Type: application/json
+
+{
+  "nombre": "Proyecto de Clase IS912",
+  "usuarioId": 1
+}
+
+### 10. Proyectos: DELETE (borra en cascada sus tareas)
+DELETE http://localhost:5133/api/proyectos/1
+
+### 11. Tareas: GET (opcional ?proyectoId=1)
+GET http://localhost:5133/api/tareas
+Accept: application/json
+
+### 12. Tareas: POST
+POST http://localhost:5133/api/tareas
+Content-Type: application/json
+
+{
+  "titulo": "Diseñar el diagrama Entidad-Relación",
+  "proyectoId": 1
+}
+
+### 13. Tareas: DELETE
+DELETE http://localhost:5133/api/tareas/1

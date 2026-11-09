@@ -54,4 +54,13 @@ public class HabitosController : ControllerBase {
 
         return CreatedAtAction(nameof(GetHabitos), new { id = response.Id }, response);
     }
+
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> EliminarHabito(int id) {
+        var habito = await _repository.GetByIdAsync(id);
+        if (habito is null) return NotFound(new { mensaje = $"No existe el hábito con id {id}." });
+
+        await _repository.DeleteAsync(habito);
+        return NoContent(); // HTTP 204
+    }
 }

@@ -26,4 +26,13 @@ public class HabitoRepository : IHabitoRepository {
         
         return habito;
     }
+
+    public async Task<HabitoGlobal?> GetByIdAsync(int id) {
+        return await _context.HabitosGlobales.FindAsync(id);
+    }
+
+    public async Task DeleteAsync(HabitoGlobal habito) {
+        _context.HabitosGlobales.Remove(habito);
+        await _context.SaveChangesAsync();
+    }
 }
